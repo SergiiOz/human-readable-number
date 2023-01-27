@@ -18,9 +18,9 @@ module.exports = function toReadable(number) {
             case 8:
                 return "eight";
             case 9:
-                return "eight";
-            case 10:
                 return "nine";
+            case 10:
+                return "ten";
             default:
                 return "";
         }
@@ -28,23 +28,23 @@ module.exports = function toReadable(number) {
 
     const elevenToNineteen = (num) => {
         switch (num) {
-            case 1:
+            case 11:
                 return "eleven";
-            case 2:
+            case 12:
                 return "twelve";
-            case 3:
+            case 13:
                 return "thirteen";
-            case 4:
+            case 14:
                 return "fourteen";
-            case 5:
+            case 15:
                 return "fifteen";
-            case 6:
+            case 16:
                 return "sixteen";
-            case 7:
+            case 17:
                 return "seventeen";
-            case 8:
+            case 18:
                 return "eighteen";
-            case 9:
+            case 19:
                 return "nineteen";
             default:
                 return "";
@@ -73,4 +73,27 @@ module.exports = function toReadable(number) {
                 return "";
         }
     };
+
+    const result = (num) => {
+        if (num === 0) {
+            return "zero";
+        } else if (num > 0 && num <= 10) {
+            return oneToTen(num);
+        } else if (num > 10 && num < 20) {
+            return elevenToNineteen(num);
+        } else if (num > 20 && num < 100) {
+            const arrNum = Array.from(String(num), Number);
+            let res = `${dozens(arrNum[0])} ${oneToTen(arrNum[1])}`;
+            return res;
+        } else if (num >= 100 && num < 1000) {
+            const arrNum = Array.from(String(num), Number);
+            let res = `${oneToTen(arrNum[0])} hundred ${dozens(
+                arrNum[1]
+            )} ${oneToTen(arrNum[2])}`;
+            return res;
+        }
+    };
+
+    //call func
+    result(number);
 };
