@@ -58,7 +58,7 @@ module.exports = function toReadable(number) {
             case 3:
                 return "thirty";
             case 4:
-                return "fourty";
+                return "forty";
             case 5:
                 return "fifty";
             case 6:
@@ -75,25 +75,55 @@ module.exports = function toReadable(number) {
     };
 
     const result = (num) => {
+        // 0
         if (num === 0) {
             return "zero";
+            // 1 to 10
         } else if (num > 0 && num <= 10) {
             return oneToTen(num);
+            // 11 to 19
         } else if (num > 10 && num < 20) {
             return elevenToNineteen(num);
-        } else if (num > 20 && num < 100) {
+            // 20 to 99
+        } else if (num >= 20 && num < 100) {
+            //split num to digits and add to arr
             const arrNum = Array.from(String(num), Number);
-            let res = `${dozens(arrNum[0])} ${oneToTen(arrNum[1])}`;
+            //default result string
+            let res = `${dozens(arrNum[0])}`;
+
+            if (num === 20 || arrNum[1] === 0) {
+                return res;
+            } else {
+                res = `${res} ${oneToTen(arrNum[1])}`;
+            }
             return res;
+            // 100 to 999
         } else if (num >= 100 && num < 1000) {
+            //split num to digits and add to arr
             const arrNum = Array.from(String(num), Number);
-            let res = `${oneToTen(arrNum[0])} hundred ${dozens(
-                arrNum[1]
-            )} ${oneToTen(arrNum[2])}`;
+            //default result string
+            let res = `${oneToTen(arrNum[0])} hundred`;
+            let secondDozen = arrNum[1] * 10 + arrNum[2];
+
+            if (secondDozen === 0) {
+                return res;
+            } else if (secondDozen <= 10) {
+                res = `${res} ${oneToTen(secondDozen)}`;
+            } else if (secondDozen > 10 && secondDozen < 20) {
+                res = `${res} ${elevenToNineteen(secondDozen)}`;
+            } else if ((secondDozen) => 20) {
+                res = `${res} ${dozens(arrNum[1])}`;
+
+                if (arrNum[2] === 0) {
+                    return res;
+                } else {
+                    return (res = `${res} ${oneToTen(arrNum[2])}`);
+                }
+            }
             return res;
         }
     };
 
     //call func
-    result(number);
+    return result(number);
 };
