@@ -51,6 +51,31 @@ module.exports = function toReadable (number) {
     }
   }
 
+  const dozens = (num) = > {
+    switch (num) {
+        case 2:
+            return "twenty"
+        case 3:
+            return "thirty"
+        case 4:
+            return "fourty"
+        case 5:
+            return "fifty"
+        case 6:
+            return "sixty"
+        case 7:
+            return "seventy"
+        case 8:
+            return "eighty"
+        case 9:
+            return "ninety"
+         default:
+            return '';
+    }
+  }
+
+
+
   
     
 }
